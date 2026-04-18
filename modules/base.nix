@@ -15,10 +15,49 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
+  environment.sessionVariables = {
+    ZI_BIN_DIR = "${pkgs.zinit}/share/zinit";
+  };
+
   environment.systemPackages = with pkgs; [
     git
     curl
     neovim
     htop
+    wget
+    rsync
+    unzip
+    zip
+    gzip
+    btop
+    fastfetch
+    tree
+    less
+    file
+    gnupg
+    age
+    zsh
+    tmux
+    starship
+    yadm
+    zinit
+    eza
+    bat
+    fd
+    ripgrep
+    fzf
+    zoxide
+    jq
+    yq
+    dust
+    delta
+    gh
+    lazygit
+    httpie
+    ctags
+    entr
   ];
 }
