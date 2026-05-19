@@ -15,6 +15,7 @@ buildGoModule rec {
     hash = "sha256-PCPqdxXoXgJZduw3o5p6+heQ8wHxidcqGQBxqD3IdjQ=";
   };
 
+  proxyVendor = true;
   vendorHash = lib.fakeHash;
 
   subPackages = [ "cmd/picoclaw" ];
