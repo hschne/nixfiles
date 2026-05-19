@@ -28,11 +28,6 @@ in
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
 
-    environment = {
-      PICOCLAW_HOME = "/home/hschne/.picoclaw";
-      PICOCLAW_CONFIG = "/home/hschne/.picoclaw/config.json";
-    };
-
     path = runtimePackages;
 
     script = ''
