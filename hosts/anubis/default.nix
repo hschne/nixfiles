@@ -7,6 +7,7 @@
     ../../modules/tailscale.nix
     ../../modules/qemu-guest.nix
     ../../modules/syncthing.nix
+    ../../modules/picoclaw.nix
   ];
 
   networking.hostName = "anubis";
