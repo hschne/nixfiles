@@ -7,6 +7,8 @@ in
 
   time.timeZone = "Europe/Vienna";
 
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+
   users.users.hschne = {
     isNormalUser = true;
     description = "Hans Schnedlitz";
