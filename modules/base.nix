@@ -20,6 +20,9 @@
   programs.fzf.fuzzyCompletion = true;
   users.defaultUserShell = pkgs.zsh;
 
+  # Allow prebuilt binaries (e.g. mise-managed node) to run on NixOS
+  programs.nix-ld.enable = true;
+
   environment.sessionVariables = {
     ZI_BIN_DIR = "${pkgs.zinit}";
   };
@@ -63,5 +66,18 @@
     ctags
     entr
     mise
+
+    # Build tools for mise-compiled runtimes (ruby, python)
+    gcc
+    gnumake
+    pkg-config
+    openssl
+    readline
+    zlib
+    libffi
+    bzip2
+    xz
+    ncurses
+    sqlite
   ];
 }
