@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -16,10 +16,12 @@
   security.sudo.wheelNeedsPassword = false;
 
   programs.zsh.enable = true;
+  programs.fzf.keybindings = true;
+  programs.fzf.fuzzyCompletion = true;
   users.defaultUserShell = pkgs.zsh;
 
   environment.sessionVariables = {
-    ZI_BIN_DIR = "${pkgs.zinit}/share/zinit";
+    ZI_BIN_DIR = "${pkgs.zinit}";
   };
 
   environment.systemPackages = with pkgs; [
@@ -39,6 +41,7 @@
     file
     gnupg
     age
+    inputs.agenix.packages.${pkgs.system}.default
     zsh
     tmux
     starship
@@ -59,5 +62,6 @@
     httpie
     ctags
     entr
+    mise
   ];
 }
