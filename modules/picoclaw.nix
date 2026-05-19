@@ -25,6 +25,7 @@ in
   systemd.services.picoclaw = {
     description = "PicoClaw personal assistant gateway";
     documentation = [ "https://docs.picoclaw.io/" ];
+    wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
 
