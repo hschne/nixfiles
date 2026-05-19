@@ -67,17 +67,11 @@
     entr
     mise
 
-    # Build tools for mise-compiled runtimes (ruby, python)
+    # Build tools
     gcc
     gnumake
     pkg-config
     openssl
-    readline
-    zlib
-    libffi
-    bzip2
-    xz
-    ncurses
     sqlite
   ];
 }
