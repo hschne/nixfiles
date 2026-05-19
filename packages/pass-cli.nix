@@ -13,6 +13,7 @@ pkgs.stdenv.mkDerivation rec {
   dontBuild = true;
 
   nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+  buildInputs = [ pkgs.stdenv.cc.cc.lib ];
 
   installPhase = ''
     mkdir -p $out/bin
