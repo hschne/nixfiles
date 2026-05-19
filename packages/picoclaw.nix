@@ -16,7 +16,7 @@ buildGoModule rec {
   };
 
   proxyVendor = true;
-  vendorHash = lib.fakeHash;
+  vendorHash = "sha256-LVfn2PsgqRVF/mLN/TLAENDEo+MnFc4DVG13+6dU+V4=";
 
   subPackages = [ "cmd/picoclaw" ];
   tags = [ "goolm" "stdjson" "whatsapp_native" ];
