@@ -9,23 +9,31 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, agenix, ... }: {
-    apps.x86_64-linux.agenix = {
-      type = "app";
-      program = "${agenix.packages.x86_64-linux.default}/bin/agenix";
-    };
+  outputs = inputs@{ nixpkgs, agenix, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      apps.${system}.agenix = {
+        type = "app";
+        program = "${agenix.packages.${system}.default}/bin/agenix";
+      };
 
-    packages.x86_64-linux.agenix = agenix.packages.x86_64-linux.default;
+      packages.${system} = {
+        agenix = agenix.packages.${system}.default;
+        picoclaw = pkgs.callPackage ./packages/picoclaw.nix { };
+      };
 
-    nixosConfigurations = {
-      anubis = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          agenix.nixosModules.default
-          ./hosts/anubis
-        ];
+      nixosConfigurations = {
+        anubis = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            agenix.nixosModules.default
+            ./hosts/anubis
+          ];
+        };
       };
     };
-  };
 }
