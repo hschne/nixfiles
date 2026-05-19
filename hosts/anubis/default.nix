@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ../../modules/base.nix
     ../../modules/ssh.nix
-    ../../modules/github-ssh.nix
     ../../modules/tailscale.nix
     ../../modules/qemu-guest.nix
     ../../modules/syncthing.nix
