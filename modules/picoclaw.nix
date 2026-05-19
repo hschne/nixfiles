@@ -31,7 +31,6 @@ in
     environment = {
       PICOCLAW_HOME = "/home/hschne/.picoclaw";
       PICOCLAW_CONFIG = "/home/hschne/.picoclaw/config.json";
-      PICOCLAW_BUILTIN_SKILLS = "/home/hschne/.pi/agent/skills";
     };
 
     path = runtimePackages;
