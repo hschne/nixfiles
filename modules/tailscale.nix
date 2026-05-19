@@ -1,5 +1,9 @@
 { ... }:
 {
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--ssh" ];
+  };
+
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 }
