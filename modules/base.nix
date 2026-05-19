@@ -1,4 +1,7 @@
 { pkgs, inputs, ... }:
+let
+  pass-cli = pkgs.callPackage ../packages/pass-cli.nix { };
+in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -66,6 +69,8 @@
     ctags
     entr
     mise
+
+    pass-cli
 
     # Build tools
     gcc
