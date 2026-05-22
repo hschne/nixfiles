@@ -11,8 +11,13 @@ let
     git
     gnugrep
     gnused
+    jq
     mise
     nodejs
+    openssh
+    procps
+    tmux
+    yq-go
   ];
   servicePath = lib.makeBinPath runtimePackages;
 in
