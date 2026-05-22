@@ -32,7 +32,7 @@ in
     path = runtimePackages;
 
     script = ''
-      export PATH="/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:${servicePath}:$PATH"
+      export PATH="/home/hschne/.scripts:/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:${servicePath}:$PATH"
       exec picoclaw gateway
     '';
 
