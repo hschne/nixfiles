@@ -6,17 +6,17 @@
 
 buildGoModule rec {
   pname = "picoclaw";
-  version = "0.2.8-unstable-2026-05-19";
+  version = "0.2.8-unstable-2026-05-22";
 
   src = fetchFromGitHub {
-    owner = "sipeed";
+    owner = "hschne";
     repo = "picoclaw";
-    rev = "639b32703a304ce3b8ba7df7c00cacd04d525bad";
-    hash = "sha256-6cOIVw8yYn2xryB9Q6qV8CJQOzC8t4P2U7zdzm4U7Jw=";
+    rev = "d94d2cad5935711222e4464ea44cc9b46d97c0f5";
+    hash = "sha256-t3yByichvSEnFUVcSwm54GwLOcAc7wSvH21+eH31+J8=";
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-LjTLLeK2M8W34z1M11wKuBAoDI6ciCG3f4FRWAre/sY=";
+  vendorHash = "sha256-BqjxAeWvoUh234x9yfodqscMq+QaUQHCyGSX1y1Ywwg=";
 
   subPackages = [ "cmd/picoclaw" ];
   tags = [ "goolm" "stdjson" "whatsapp_native" ];
@@ -25,8 +25,8 @@ buildGoModule rec {
     "-s"
     "-w"
     "-X github.com/sipeed/picoclaw/pkg/config.Version=${version}"
-    "-X github.com/sipeed/picoclaw/pkg/config.GitCommit=639b327"
-    "-X github.com/sipeed/picoclaw/pkg/config.BuildTime=2026-05-19T07:18:47+0000"
+    "-X github.com/sipeed/picoclaw/pkg/config.GitCommit=d94d2ca"
+    "-X github.com/sipeed/picoclaw/pkg/config.BuildTime=2026-05-22T00:00:00+0000"
     "-X github.com/sipeed/picoclaw/pkg/config.GoVersion=unknown"
   ];
 
