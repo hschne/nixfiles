@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "picoclaw";
-  version = "0.2.8-unstable-2026-05-22";
+  version = "0.2.8-unstable-2026-05-23";
 
   src = fetchFromGitHub {
     owner = "hschne";
     repo = "picoclaw";
-    rev = "d94d2cad5935711222e4464ea44cc9b46d97c0f5";
-    hash = "sha256-t3yByichvSEnFUVcSwm54GwLOcAc7wSvH21+eH31+J8=";
+    rev = "e369807f3c2c2772b69a9138007b77be4275ee3c";
+    hash = "sha256-SP6OpELFrp8JzTz8UlgjqAlSx7jnuoxdxUhSdnP5lbE=";
   };
 
   proxyVendor = true;
@@ -25,8 +25,8 @@ buildGoModule rec {
     "-s"
     "-w"
     "-X github.com/sipeed/picoclaw/pkg/config.Version=${version}"
-    "-X github.com/sipeed/picoclaw/pkg/config.GitCommit=d94d2ca"
-    "-X github.com/sipeed/picoclaw/pkg/config.BuildTime=2026-05-22T00:00:00+0000"
+    "-X github.com/sipeed/picoclaw/pkg/config.GitCommit=e369807"
+    "-X github.com/sipeed/picoclaw/pkg/config.BuildTime=2026-05-23T00:00:00+0000"
     "-X github.com/sipeed/picoclaw/pkg/config.GoVersion=unknown"
   ];
 
