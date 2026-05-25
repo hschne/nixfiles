@@ -12,7 +12,7 @@ buildGoModule rec {
     owner = "sipeed";
     repo = "picoclaw";
     rev = "ab6d3946a5c23f59728345d39bbecfdac95767b9";
-    hash = "";
+    hash = "sha256-7asoLV7DAVBeo9O2EnTsZfJz3tr1c2YqC5RGduWm9qk=";
   };
 
   proxyVendor = true;
