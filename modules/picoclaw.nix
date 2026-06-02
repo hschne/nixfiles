@@ -61,25 +61,7 @@ in
     script = ''
       export PATH="/home/hschne/.scripts:/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:${servicePath}:$PATH"
       cd /home/hschne/.picoclaw
-
-      old_ref="$(git rev-parse HEAD)"
-      bash workspace/skills/picoclaw-sync/scripts/sync.sh pull
-      new_ref="$(git rev-parse HEAD)"
-
-      cron_changed=0
-      if [[ "$old_ref" != "$new_ref" ]] && git diff --name-only "$old_ref" "$new_ref" -- workspace/cron/cron.yml | grep -qx workspace/cron/cron.yml; then
-        cron_changed=1
-      fi
-
-      stale_self_sync=0
-      if [[ -f workspace/cron/jobs.json ]] && jq -e '.jobs[]? | select(.name == "picoclaw-sync")' workspace/cron/jobs.json >/dev/null; then
-        stale_self_sync=1
-      fi
-
-      if [[ "$cron_changed" == 1 || "$stale_self_sync" == 1 ]]; then
-        bash workspace/skills/cron/scripts/setup
-        touch config.json
-      fi
+      exec bash workspace/skills/picoclaw-sync/scripts/sync.sh pull
     '';
 
     serviceConfig = {
