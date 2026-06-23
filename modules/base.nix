@@ -44,6 +44,7 @@ in
     gzip
     btop
     fastfetch
+    bubblewrap
     tree
     less
     file
