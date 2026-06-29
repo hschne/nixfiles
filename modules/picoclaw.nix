@@ -81,4 +81,22 @@ in
       Unit = "picoclaw-sync.service";
     };
   };
+
+  systemd.services.picoclaw-restart = {
+    description = "Restart PicoClaw daily";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/systemctl restart picoclaw.service";
+    };
+  };
+
+  systemd.timers.picoclaw-restart = {
+    description = "Restart PicoClaw every day at 00:00";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "00:00";
+      Persistent = true;
+      Unit = "picoclaw-restart.service";
+    };
+  };
 }
