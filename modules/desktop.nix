@@ -14,6 +14,11 @@
   # Hint Electron/Chromium apps to use Wayland.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # GPU drivers / Vulkan ICD (RADV for AMD). Needed for accelerated Hyprland
+  # and the Vulkan voxtype variant on real hardware; harmless in the VM, which
+  # is forced to software rendering anyway.
+  hardware.graphics.enable = true;
+
   # Desktop portals for screen sharing, file pickers, etc.
   xdg.portal = {
     enable = true;

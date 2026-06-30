@@ -1,6 +1,9 @@
 { pkgs, ... }:
 let
-  voxtype = pkgs.callPackage ../packages/voxtype.nix { };
+  # avx2 = FMA-optimized CPU build. On real hardware with a Vulkan GPU, pass
+  # { variant = "vulkan"; } for GPU offload (hardware.graphics is enabled in
+  # desktop.nix); its runtime deps stay wrapped inside the package.
+  voxtype = pkgs.callPackage ../packages/voxtype.nix { variant = "avx2"; };
 in
 {
   # GUI applications that need a desktop session.
@@ -36,7 +39,7 @@ in
     filezilla
     gpu-screen-recorder
 
-    # Push-to-talk voice-to-text (prebuilt AVX2 binary; see packages/voxtype.nix).
+    # Push-to-talk voice-to-text (see packages/voxtype.nix).
     voxtype
   ];
 }
