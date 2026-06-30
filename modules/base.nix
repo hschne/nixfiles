@@ -1,8 +1,7 @@
-{ pkgs, inputs, ... }:
-let
-  pass-cli = pkgs.callPackage ../packages/pass-cli.nix { };
-in
+{ pkgs, ... }:
 {
+  # Bare necessities to bring a host up and operate it. Anything interactive
+  # or workflow-specific belongs in cli.nix / dev.nix / feature modules.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   time.timeZone = "Europe/Vienna";
@@ -20,66 +19,21 @@ in
 
   security.sudo.wheelNeedsPassword = false;
 
-  programs.zsh.enable = true;
-  programs.fzf.keybindings = true;
-  programs.fzf.fuzzyCompletion = true;
-  users.defaultUserShell = pkgs.zsh;
-
-  # Allow prebuilt binaries (e.g. mise-managed node) to run on NixOS
+  # Allow prebuilt binaries (e.g. mise-managed runtimes) to run on NixOS.
   programs.nix-ld.enable = true;
-
-  environment.sessionVariables = {
-    ZI_BIN_DIR = "${pkgs.zinit}";
-  };
 
   environment.systemPackages = with pkgs; [
     git
     curl
+    wget
     neovim
     htop
-    wget
     rsync
     unzip
     zip
     gzip
-    btop
-    fastfetch
-    bubblewrap
     tree
     less
     file
-    gnupg
-    age
-    inputs.agenix.packages.${pkgs.system}.default
-    zsh
-    tmux
-    starship
-    yadm
-    zinit
-    eza
-    bat
-    fd
-    ripgrep
-    fzf
-    zoxide
-    jq
-    yq
-    dust
-    delta
-    gh
-    lazygit
-    httpie
-    ctags
-    entr
-    mise
-
-    pass-cli
-
-    # Build tools
-    gcc
-    gnumake
-    pkg-config
-    openssl
-    sqlite
   ];
 }

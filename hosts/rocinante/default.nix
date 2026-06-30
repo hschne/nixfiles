@@ -3,9 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./vm.nix
-    ../../modules/base.nix
-    ../../modules/cli.nix
-    ../../modules/ssh.nix
+    ../../profiles/common.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
     ../../modules/apps.nix

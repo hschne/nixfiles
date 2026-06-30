@@ -2,11 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/ssh.nix
-    ../../modules/tailscale.nix
+    ../../profiles/common.nix
     ../../modules/qemu-guest.nix
-    ../../modules/syncthing.nix
     ../../modules/picoclaw.nix
   ];
 
