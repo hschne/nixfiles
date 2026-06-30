@@ -49,6 +49,7 @@
     noto-fonts-cjk-sans
     material-icons
     material-design-icons
+    (callPackage ../packages/lobe-icons-font.nix { })
   ];
 
   environment.systemPackages = with pkgs; [
