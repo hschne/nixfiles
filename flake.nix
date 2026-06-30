@@ -34,6 +34,15 @@
             ./hosts/anubis
           ];
         };
+
+        rocinante = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            agenix.nixosModules.default
+            ./hosts/rocinante
+          ];
+        };
       };
     };
 }

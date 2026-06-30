@@ -1,0 +1,96 @@
+{ pkgs, ... }:
+{
+  # Hyprland (Wayland) session, launched through uwsm.
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
+
+  # SDDM with the X11 greeter (reliable under VirtualBox); the session
+  # itself is Wayland/Hyprland.
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+
+  # Hint Electron/Chromium apps to use Wayland.
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # Desktop portals for screen sharing, file pickers, etc.
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  # Auth dialogs (the dotfiles' exec-once path is Arch-specific; run the
+  # agent declaratively so polkit prompts work regardless).
+  security.polkit.enable = true;
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+
+  # GTK app settings backend and nautilus mounting support.
+  programs.dconf.enable = true;
+  services.gvfs.enable = true;
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.sauce-code-pro
+    font-awesome
+    noto-fonts
+    noto-fonts-color-emoji
+    noto-fonts-cjk-sans
+    material-icons
+    material-design-icons
+  ];
+
+  environment.systemPackages = with pkgs; [
+    # Terminal, launcher, file manager, notifications, bar
+    kitty
+    walker
+    nautilus
+    mako
+    waybar
+
+    # Hyprland ecosystem tools
+    hypridle
+    hyprlock
+    hyprpicker
+    hyprpaper
+    hyprsunset
+    hyprcursor
+
+    # Session helpers / monitor + idle + media
+    kanshi
+    swaybg
+    swayosd
+    brightnessctl
+    playerctl
+    wlr-randr
+    wayfreeze
+
+    # Screenshots / clipboard / image viewer
+    grim
+    slurp
+    satty
+    wl-clipboard
+    imv
+
+    # Notifications + auth + theming
+    libnotify
+    polkit_gnome
+    arc-theme
+    papirus-icon-theme
+
+    # Qt Wayland support
+    qt5.qtwayland
+    qt6.qtwayland
+  ];
+}
