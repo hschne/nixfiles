@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ./vm.nix
     ../../modules/base.nix
+    ../../modules/cli.nix
     ../../modules/ssh.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix

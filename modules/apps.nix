@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  voxtype = pkgs.callPackage ../packages/voxtype.nix { };
+in
 {
   # GUI applications that need a desktop session.
   nixpkgs.config.allowUnfree = true;
@@ -32,5 +35,8 @@
     # Files / transfer / capture
     filezilla
     gpu-screen-recorder
+
+    # Push-to-talk voice-to-text (prebuilt AVX2 binary; see packages/voxtype.nix).
+    voxtype
   ];
 }
