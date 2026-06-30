@@ -28,6 +28,24 @@
   # Auth dialogs (the dotfiles' exec-once path is Arch-specific; run the
   # agent declaratively so polkit prompts work regardless).
   security.polkit.enable = true;
+  # Elephant: data-provider backend daemon that walker queries. Walker is
+  # autostarted by the dotfiles; elephant must be running for it to return
+  # results (providers: desktopapplications, websearch, menus, files, symbols,
+  # clipboard, providerlist - all bundled in the package).
+  systemd.user.services.elephant = {
+    description = "Elephant data provider service (walker backend)";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    # clipboard provider shells out to wl-paste/wl-copy.
+    path = [ pkgs.wl-clipboard ];
+    serviceConfig = {
+      ExecStart = "${pkgs.elephant}/bin/elephant";
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+  };
+
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     description = "polkit-gnome-authentication-agent-1";
     wantedBy = [ "graphical-session.target" ];
@@ -58,9 +76,10 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Terminal, launcher, file manager, notifications, bar
+    # Terminal, launcher (+ elephant backend), file manager, notifications, bar
     kitty
     walker
+    elephant
     nautilus
     mako
     waybar
@@ -82,12 +101,13 @@
     wlr-randr
     wayfreeze
 
-    # Screenshots / clipboard / image viewer
+    # Screenshots / clipboard / image viewer / image tooling
     grim
     slurp
     satty
     wl-clipboard
     imv
+    imagemagick
 
     # Notifications + auth + theming
     libnotify

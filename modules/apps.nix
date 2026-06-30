@@ -37,7 +37,7 @@ in
 
     # Files / transfer / capture
     filezilla
-    gpu-screen-recorder
+    wl-screenrec
 
     # Push-to-talk voice-to-text (see packages/voxtype.nix).
     voxtype
