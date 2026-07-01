@@ -2,13 +2,14 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./vm.nix
+    ./metal.nix
     ../../profiles/common.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
     ../../modules/apps.nix
     ../../modules/bluetooth.nix
     ../../modules/docker.nix
+    ../../modules/wifi.nix
   ];
 
   networking.hostName = "rocinante";
@@ -16,9 +17,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.networkmanager.enable = true;
-
-  # Console/desktop login password. SSH still uses keys only.
+  # Console/desktop login password. SSH still uses keys only. Change after
+  # first boot with `passwd`.
   users.users.hschne.initialPassword = "nixos";
 
   system.stateVersion = "25.11";

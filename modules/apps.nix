@@ -1,9 +1,9 @@
 { pkgs, ... }:
 let
-  # avx2 = FMA-optimized CPU build. On real hardware with a Vulkan GPU, pass
-  # { variant = "vulkan"; } for GPU offload (hardware.graphics is enabled in
-  # desktop.nix); its runtime deps stay wrapped inside the package.
-  voxtype = pkgs.callPackage ../packages/voxtype.nix { variant = "avx2"; };
+  # vulkan = GPU offload on the Radeon 760M (hardware.graphics is enabled in
+  # desktop.nix); its runtime deps stay wrapped inside the package. Use
+  # { variant = "avx2"; } for a CPU-only / VM build.
+  voxtype = pkgs.callPackage ../packages/voxtype.nix { variant = "vulkan"; };
 in
 {
   # GUI applications that need a desktop session.
