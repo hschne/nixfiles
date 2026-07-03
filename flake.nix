@@ -9,7 +9,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, agenix, ... }:
+  outputs = inputs@{ self, nixpkgs, agenix, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -23,6 +23,10 @@
       packages.${system} = {
         agenix = agenix.packages.${system}.default;
         picoclaw = pkgs.callPackage ./packages/picoclaw.nix { };
+
+        # Bootable installer ISO. Build with:
+        #   nix build .#installer-iso
+        installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
       };
 
       nixosConfigurations = {
@@ -42,6 +46,12 @@
             agenix.nixosModules.default
             ./hosts/rocinante
           ];
+        };
+
+        installer = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs self; };
+          modules = [ ./hosts/installer ];
         };
       };
     };
