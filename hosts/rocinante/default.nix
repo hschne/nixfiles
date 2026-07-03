@@ -15,7 +15,10 @@
   networking.hostName = "rocinante";
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  system.nixos.label = "NixOS";
 
   # Console/desktop login password. SSH still uses keys only. Change after
   # first boot with `passwd`.
