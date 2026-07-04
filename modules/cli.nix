@@ -10,7 +10,13 @@ in
   programs.fzf.fuzzyCompletion = true;
   users.defaultUserShell = pkgs.zsh;
 
-  environment.sessionVariables.ZI_BIN_DIR = "${pkgs.zinit}";
+  environment.sessionVariables = {
+    ZI_BIN_DIR = "${pkgs.zinit}";
+
+    # Use GNOME Keyring's Secret Service backend for Proton Pass CLI instead
+    # of the session-sensitive kernel keyring backend.
+    PROTON_PASS_LINUX_KEYRING = "dbus";
+  };
 
   environment.systemPackages = with pkgs; [
     # Shell, prompt, multiplexer, dotfiles

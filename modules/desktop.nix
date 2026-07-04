@@ -71,6 +71,9 @@
     };
   };
 
+  # Secret Service provider for desktop apps and Proton Pass CLI.
+  services.gnome.gnome-keyring.enable = true;
+
   # GTK app settings backend and nautilus mounting support.
   programs.dconf.enable = true;
   services.gvfs.enable = true;
