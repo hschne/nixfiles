@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./metal.nix
     ../../profiles/common.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
@@ -17,6 +16,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # GPU/WiFi firmware + AMD microcode for the Ryzen/Radeon 760M laptop.
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
   system.nixos.label = "NixOS";
 
