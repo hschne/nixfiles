@@ -31,6 +31,9 @@
   # Allow prebuilt binaries (e.g. mise-managed runtimes) to run on NixOS.
   programs.nix-ld.enable = true;
 
+  # Compatibility for user scripts with FHS shebangs like /bin/bash.
+  services.envfs.enable = true;
+
   environment.systemPackages = with pkgs; [
     git
     curl

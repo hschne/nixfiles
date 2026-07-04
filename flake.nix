@@ -9,7 +9,13 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, agenix, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      agenix,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -23,6 +29,7 @@
       packages.${system} = {
         agenix = agenix.packages.${system}.default;
         picoclaw = pkgs.callPackage ./packages/picoclaw.nix { };
+        codexbar = pkgs.callPackage ./packages/codexbar.nix { };
 
         # Bootable installer ISO. Build with:
         #   nix build .#installer-iso

@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  codexbar = pkgs.callPackage ../packages/codexbar.nix { };
+in
 {
   # Hyprland (Wayland) session, launched through uwsm.
   programs.hyprland = {
@@ -107,6 +110,7 @@
     nautilus
     mako
     waybar
+    codexbar
 
     # Hyprland ecosystem tools
     hypridle
