@@ -9,9 +9,16 @@
   # SDDM with the X11 greeter (reliable under VirtualBox); the session
   # itself is Wayland/Hyprland.
   services.xserver.enable = true;
-  services.displayManager.sddm = {
-    enable = true;
-    theme = "breeze";
+  services.displayManager = {
+    defaultSession = "hyprland-uwsm";
+    autoLogin = {
+      enable = true;
+      user = "hschne";
+    };
+    sddm = {
+      enable = true;
+      theme = "breeze";
+    };
   };
 
   # Hint Electron/Chromium apps to use Wayland.
