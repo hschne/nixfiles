@@ -9,7 +9,10 @@
   # SDDM with the X11 greeter (reliable under VirtualBox); the session
   # itself is Wayland/Hyprland.
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "breeze";
+  };
 
   # Hint Electron/Chromium apps to use Wayland.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -128,6 +131,7 @@
     polkit_gnome
     arc-theme
     papirus-icon-theme
+    kdePackages.breeze
 
     # Qt Wayland support
     qt5.qtwayland

@@ -17,6 +17,10 @@
   boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "bgrt";
+  boot.kernelParams = [ "quiet" "splash" ];
+
   # GPU/WiFi firmware + AMD microcode for the Ryzen/Radeon 760M laptop.
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
