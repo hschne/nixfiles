@@ -26,8 +26,19 @@
   };
 
   # Auth dialogs (the dotfiles' exec-once path is Arch-specific; run the
-  # agent declaratively so polkit prompts work regardless).
-  security.polkit.enable = true;
+  # agent declaratively so polkit prompts work regardless). Wheel already has
+  # passwordless sudo in base.nix; keep desktop polkit behavior consistent so
+  # local admin actions do not repeatedly ask for the root password.
+  security.polkit = {
+    enable = true;
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (subject.local && subject.active && subject.isInGroup("wheel")) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
+  };
   # Elephant: data-provider backend daemon that walker queries. Walker is
   # autostarted by the dotfiles; elephant must be running for it to return
   # results (providers: desktopapplications, websearch, menus, files, symbols,
