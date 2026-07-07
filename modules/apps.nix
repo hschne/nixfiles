@@ -38,6 +38,7 @@ in
     # Files / transfer / capture
     filezilla
     wl-screenrec
+    obs-studio
 
     # Push-to-talk voice-to-text (see packages/voxtype.nix).
     voxtype

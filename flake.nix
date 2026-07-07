@@ -29,7 +29,6 @@
       packages.${system} = {
         agenix = agenix.packages.${system}.default;
         picoclaw = pkgs.callPackage ./packages/picoclaw.nix { };
-        codexbar = pkgs.callPackage ./packages/codexbar.nix { };
 
         # Bootable installer ISO. Build with:
         #   nix build .#installer-iso
