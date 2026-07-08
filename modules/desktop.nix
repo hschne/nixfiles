@@ -49,17 +49,14 @@
       });
     '';
   };
-  # Elephant: data-provider backend daemon that walker queries. Walker is
-  # autostarted by the dotfiles; elephant must be running for it to return
-  # results (providers: desktopapplications, websearch, menus, files, symbols,
-  # clipboard, providerlist - all bundled in the package).
+  # Elephant
   systemd.user.services.elephant = {
-    description = "Elephant data provider service (walker backend)";
+    description = "Elephant data provider service";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     after = [ "graphical-session.target" ];
     # Elephant launches desktop files through sh/systemd-run and providers shell
-    # out to desktop tools. Give it the full system profile, not a narrow PATH.
+    # out to desktop tools. Give it the full system profile.
     path = [ config.system.path ];
     serviceConfig = {
       ExecStart = "${pkgs.elephant}/bin/elephant";
@@ -88,6 +85,10 @@
   # GTK app settings backend and nautilus mounting support.
   programs.dconf.enable = true;
   services.gvfs.enable = true;
+
+  # Papirus/Adwaita icons are mostly SVG; GTK needs librsvg registered as a
+  # pixbuf loader or icon lookups resolve to missing-image placeholders.
+  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
   # Give GTK launchers a complete icon theme instead of falling back to
   # missing-image placeholders. Papirus-Dark lacks some app-requested emblems
