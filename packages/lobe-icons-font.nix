@@ -1,6 +1,5 @@
-# Custom icon font (AI provider glyphs, Unicode Plane 15), built from
-# github.com/hschne/lobe-icons-font. The repo is private and `dist/` is
-# gitignored, so the prebuilt ttf is vendored here rather than fetched/built.
+# AI provider glyphs (Unicode Plane 15) from github.com/hschne/lobe-icons-font.
+# The repo is private, so the built ttf is vendored here.
 { stdenvNoCC }:
 
 stdenvNoCC.mkDerivation {

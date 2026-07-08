@@ -1,6 +1,4 @@
-# WiFi via NetworkManager with the iwd backend (matches the Arch setup, where
-# impala is used as the WiFi TUI). Not imported on the VirtualBox VM, which
-# uses NAT ethernet and has no WiFi adapter; enable this on real hardware.
+# NetworkManager with the iwd backend. Only for hosts with a WiFi adapter.
 { pkgs, ... }:
 {
   networking.networkmanager.enable = true;

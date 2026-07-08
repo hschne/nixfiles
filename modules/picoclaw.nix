@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   picoclaw = pkgs.callPackage ../packages/picoclaw.nix { };
   runtimePackages = with pkgs; [
@@ -19,7 +19,6 @@ let
     tmux
     yq-go
   ];
-  servicePath = lib.makeBinPath runtimePackages;
 in
 {
   environment.systemPackages = [
@@ -37,12 +36,11 @@ in
     path = runtimePackages;
 
     script = ''
-      export PATH="/home/hschne/.scripts:/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:${servicePath}:$PATH"
+      export PATH="/home/hschne/.scripts:/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:$PATH"
       exec picoclaw gateway
     '';
 
     serviceConfig = {
-      Type = "simple";
       User = "hschne";
       Group = "users";
       WorkingDirectory = "/home/hschne";
@@ -59,8 +57,7 @@ in
     path = runtimePackages;
 
     script = ''
-      export PATH="/home/hschne/.scripts:/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:${servicePath}:$PATH"
-      cd /home/hschne/.picoclaw
+      export PATH="/home/hschne/.scripts:/home/hschne/.local/share/mise/shims:/home/hschne/.local/bin:$PATH"
       exec bash workspace/skills/picoclaw-sync/scripts/sync.sh pull
     '';
 
@@ -73,12 +70,10 @@ in
   };
 
   systemd.timers.picoclaw-sync = {
-    description = "Pull PicoClaw workspace updates every 30 minutes";
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "*:03,33";
       Persistent = true;
-      Unit = "picoclaw-sync.service";
     };
   };
 
@@ -91,12 +86,10 @@ in
   };
 
   systemd.timers.picoclaw-restart = {
-    description = "Restart PicoClaw every day at 00:00";
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "00:00";
       Persistent = true;
-      Unit = "picoclaw-restart.service";
     };
   };
 }

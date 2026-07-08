@@ -2,7 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/common.nix
+    ../../modules/common.nix
+    ../../modules/syncthing.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
     ../../modules/apps.nix
@@ -19,16 +20,18 @@
 
   boot.plymouth.enable = true;
   boot.plymouth.theme = "bgrt";
-  boot.kernelParams = [ "quiet" "splash" ];
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+  ];
 
-  # GPU/WiFi firmware + AMD microcode for the Ryzen/Radeon 760M laptop.
+  # Radeon/WiFi firmware + AMD microcode.
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
 
   system.nixos.label = "NixOS";
 
-  # Console/desktop login password. SSH still uses keys only. Change after
-  # first boot with `passwd`.
+  # Console login only; SSH stays key-only. Change with `passwd`.
   users.users.hschne.initialPassword = "nixos";
 
   system.stateVersion = "25.11";

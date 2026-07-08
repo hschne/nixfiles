@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 {
-  # Hyprland (Wayland) session, launched through uwsm.
+  # Hyprland session launched through uwsm.
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
 
-  # SDDM with the X11 greeter (reliable under VirtualBox); the session
-  # itself is Wayland/Hyprland.
   services.xserver.enable = true;
   services.displayManager = {
     defaultSession = "hyprland-uwsm";
@@ -24,21 +22,16 @@
   # Hint Electron/Chromium apps to use Wayland.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # GPU drivers / Vulkan ICD (RADV for AMD). Needed for accelerated Hyprland
-  # and the Vulkan voxtype variant on real hardware; harmless in the VM, which
-  # is forced to software rendering anyway.
+  # GPU drivers / Vulkan ICD (RADV).
   hardware.graphics.enable = true;
 
-  # Desktop portals for screen sharing, file pickers, etc.
+  # Portals for screen sharing, file pickers, etc.
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Auth dialogs (the dotfiles' exec-once path is Arch-specific; run the
-  # agent declaratively so polkit prompts work regardless). Wheel already has
-  # passwordless sudo in base.nix; keep desktop polkit behavior consistent so
-  # local admin actions do not repeatedly ask for the root password.
+  # No polkit password prompts for wheel (matches passwordless sudo).
   security.polkit = {
     enable = true;
     extraConfig = ''
@@ -49,14 +42,13 @@
       });
     '';
   };
-  # Elephant
+
   systemd.user.services.elephant = {
     description = "Elephant data provider service";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     after = [ "graphical-session.target" ];
-    # Elephant launches desktop files through sh/systemd-run and providers shell
-    # out to desktop tools. Give it the full system profile.
+    # Providers shell out to desktop tools; give them the full system profile.
     path = [ config.system.path ];
     serviceConfig = {
       ExecStart = "${pkgs.elephant}/bin/elephant";
@@ -68,10 +60,9 @@
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     description = "polkit-gnome-authentication-agent-1";
     wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
     after = [ "graphical-session.target" ];
     serviceConfig = {
-      Type = "simple";
       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
       Restart = "on-failure";
       RestartSec = 1;
@@ -79,21 +70,18 @@
     };
   };
 
-  # Secret Service provider for desktop apps and Proton Pass CLI.
+  # Secret Service provider for desktop apps and pass-cli.
   services.gnome.gnome-keyring.enable = true;
 
-  # GTK app settings backend and nautilus mounting support.
+  # GTK settings backend and nautilus mounting support.
   programs.dconf.enable = true;
   services.gvfs.enable = true;
 
-  # Papirus/Adwaita icons are mostly SVG; GTK needs librsvg registered as a
-  # pixbuf loader or icon lookups resolve to missing-image placeholders.
+  # Papirus/Adwaita icons are SVG; without librsvg as a pixbuf loader GTK
+  # renders missing-image placeholders.
   programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
-  # Give GTK launchers a complete icon theme instead of falling back to
-  # missing-image placeholders. Papirus-Dark lacks some app-requested emblems
-  # (for example pavucontrol's emblem-default), so use the base Papirus theme
-  # with the dark GTK theme.
+  # Papirus (not Papirus-Dark) — the dark variant lacks some emblems.
   environment.etc."xdg/gtk-3.0/settings.ini".text = ''
     [Settings]
     gtk-theme-name=Arc-Dark
@@ -119,7 +107,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Terminal, launcher (+ elephant backend), file manager, notifications, bar
+    # Terminal, launcher, file manager, notifications, bar
     kitty
     walker
     elephant
@@ -127,7 +115,7 @@
     mako
     waybar
 
-    # Hyprland ecosystem tools
+    # Hyprland ecosystem
     hypridle
     hyprlock
     hyprpicker
@@ -135,7 +123,7 @@
     hyprsunset
     hyprcursor
 
-    # Session helpers / monitor + idle + media
+    # Monitors / idle / media
     kanshi
     wdisplays
     swaybg
@@ -145,7 +133,7 @@
     wlr-randr
     wayfreeze
 
-    # Screenshots / clipboard / image viewer / image tooling
+    # Screenshots / clipboard / images
     grim
     slurp
     satty
@@ -153,7 +141,7 @@
     imv
     imagemagick
 
-    # Notifications + auth + theming
+    # Notifications / auth / theming
     libnotify
     polkit_gnome
     arc-theme

@@ -19,7 +19,11 @@ buildGoModule rec {
   vendorHash = "sha256-YdF4h7iL5IcWSancyCrpVXnbVzR1ygXfFTFAsA87EME=";
 
   subPackages = [ "cmd/picoclaw" ];
-  tags = [ "goolm" "stdjson" "whatsapp_native" ];
+  tags = [
+    "goolm"
+    "stdjson"
+    "whatsapp_native"
+  ];
 
   ldflags = [
     "-s"

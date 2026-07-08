@@ -10,7 +10,9 @@
     overrideFolders = true;
     settings = {
       devices = {
-        "Diskstation" = { id = "U3N7BXQ-F5YKRMY-OCEL7QA-27X4OHS-IQGG2HT-PFS76US-PZF64Z7-CDGPLAW"; };
+        "Diskstation" = {
+          id = "U3N7BXQ-F5YKRMY-OCEL7QA-27X4OHS-IQGG2HT-PFS76US-PZF64Z7-CDGPLAW";
+        };
       };
       folders = {
         "Wiki" = {

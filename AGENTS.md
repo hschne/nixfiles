@@ -11,17 +11,20 @@ NixOS configuration for Hans's hosts, managed as a flake.
 ## Repo layout
 
 ```
-flake.nix               # Flake inputs (nixpkgs unstable, agenix)
-modules/base.nix        # Shared packages and settings for all hosts
-hosts/anubis/           # Host-specific config (imports base.nix + modules)
-secrets/                # agenix-encrypted secrets
+flake.nix               # Inputs (nixpkgs unstable) and host outputs
+modules/common.nix      # Baseline every host imports (user, SSH, CLI, toolchain)
+modules/*.nix           # Feature modules (desktop, audio, apps, docker, ...)
+hosts/<name>/           # Host config (imports common.nix + feature modules)
+packages/               # Custom package derivations
 ```
 
 ## Hosts
 
-| Host   | Role                             | Access                   |
-| ------ | -------------------------------- | ------------------------ |
-| anubis | Headless NixOS devbox on Proxmox | `ssh anubis` (Tailscale) |
+| Host      | Role                             | Access                      |
+| --------- | -------------------------------- | --------------------------- |
+| anubis    | Headless NixOS devbox on Proxmox | `ssh anubis` (Tailscale)    |
+| rocinante | AMD laptop (Hyprland desktop)    | local                       |
+| installer | Bootable ISO for metal installs  | `nix build .#installer-iso` |
 
 ## Applying changes to anubis
 

@@ -2,8 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/common.nix
-    ../../modules/qemu-guest.nix
+    ../../modules/common.nix
+    ../../modules/syncthing.nix
     ../../modules/picoclaw.nix
   ];
 
@@ -11,6 +11,8 @@
 
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
+
+  services.qemuGuest.enable = true;
 
   system.stateVersion = "25.11";
 }

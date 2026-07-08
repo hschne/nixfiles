@@ -2,6 +2,17 @@
 
 My NixOS host configuration.
 
+## Hosts
+
+- **anubis** — headless devbox on Proxmox
+- **rocinante** — AMD laptop with Hyprland
+
+## Rebuild
+
+```bash
+sudo nixos-rebuild switch --flake .#<host>
+```
+
 ## Installer ISO
 
 ```bash
