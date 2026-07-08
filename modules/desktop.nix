@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   # Hyprland (Wayland) session, launched through uwsm.
   programs.hyprland = {
@@ -58,8 +58,9 @@
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     after = [ "graphical-session.target" ];
-    # clipboard provider shells out to wl-paste/wl-copy.
-    path = [ pkgs.wl-clipboard ];
+    # Elephant launches desktop files through sh/systemd-run and providers shell
+    # out to desktop tools. Give it the full system profile, not a narrow PATH.
+    path = [ config.system.path ];
     serviceConfig = {
       ExecStart = "${pkgs.elephant}/bin/elephant";
       Restart = "on-failure";
@@ -87,6 +88,23 @@
   # GTK app settings backend and nautilus mounting support.
   programs.dconf.enable = true;
   services.gvfs.enable = true;
+
+  # Give GTK launchers a complete icon theme instead of falling back to
+  # missing-image placeholders. Papirus-Dark lacks some app-requested emblems
+  # (for example pavucontrol's emblem-default), so use the base Papirus theme
+  # with the dark GTK theme.
+  environment.etc."xdg/gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-theme-name=Arc-Dark
+    gtk-icon-theme-name=Papirus
+    gtk-application-prefer-dark-theme=1
+  '';
+  environment.etc."xdg/gtk-4.0/settings.ini".text = ''
+    [Settings]
+    gtk-theme-name=Arc-Dark
+    gtk-icon-theme-name=Papirus
+    gtk-application-prefer-dark-theme=1
+  '';
 
   fonts.packages = with pkgs; [
     nerd-fonts.sauce-code-pro
@@ -118,6 +136,7 @@
 
     # Session helpers / monitor + idle + media
     kanshi
+    wdisplays
     swaybg
     swayosd
     brightnessctl
@@ -138,6 +157,8 @@
     polkit_gnome
     arc-theme
     papirus-icon-theme
+    adwaita-icon-theme
+    hicolor-icon-theme
     kdePackages.breeze
 
     # Qt Wayland support
