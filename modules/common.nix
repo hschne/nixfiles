@@ -114,11 +114,10 @@ in
     age
     pass-cli
 
-    # Build toolchain; openssl/sqlite for mise-compiled runtimes
+    # Build toolchain; openssl for mise-compiled runtimes
     gcc
     gnumake
     pkg-config
     openssl
-    sqlite
   ];
 }

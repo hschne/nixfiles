@@ -14,11 +14,11 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/mapper/luks-ffa6f553-e638-4408-8688-2c5013efe802";
+    { device = "/dev/mapper/root";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-ffa6f553-e638-4408-8688-2c5013efe802".device = "/dev/disk/by-uuid/ffa6f553-e638-4408-8688-2c5013efe802";
+  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/ffa6f553-e638-4408-8688-2c5013efe802";
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/F67A-82D8";

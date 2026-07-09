@@ -51,6 +51,7 @@
 
     # Communication
     signal-desktop
+    discord
 
     # Files / transfer / capture
     filezilla
