@@ -3,8 +3,6 @@ let
   pass-cli = pkgs.callPackage ../packages/pass-cli.nix { };
 in
 {
-  # Baseline for every host: nix settings, user, SSH/Tailscale, CLI environment.
-
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"

@@ -56,8 +56,5 @@
     # Files / transfer / capture
     filezilla
     wl-screenrec
-
-    # Push-to-talk voice-to-text; vulkan = GPU offload on the Radeon 760M.
-    (callPackage ../packages/voxtype.nix { variant = "vulkan"; })
   ];
 }

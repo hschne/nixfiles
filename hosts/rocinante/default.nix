@@ -5,8 +5,11 @@
     ../../modules/common.nix
     ../../modules/syncthing.nix
     ../../modules/desktop.nix
+    ../../modules/hyprland.nix
+    ../../modules/theming.nix
     ../../modules/audio.nix
     ../../modules/apps.nix
+    ../../modules/voxtype.nix
     ../../modules/bluetooth.nix
     ../../modules/docker.nix
     ../../modules/wifi.nix
