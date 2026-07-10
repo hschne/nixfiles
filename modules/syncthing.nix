@@ -14,14 +14,7 @@
           id = "U3N7BXQ-F5YKRMY-OCEL7QA-27X4OHS-IQGG2HT-PFS76US-PZF64Z7-CDGPLAW";
         };
       };
-      folders = {
-        "Wiki" = {
-          id = "um3ae-juejn";
-          path = "/home/hschne/Documents/Wiki";
-          devices = [ "Diskstation" ];
-          type = "sendreceive";
-        };
-      };
+      # Folders are defined per-host (see hosts/<name>/default.nix).
     };
   };
 }

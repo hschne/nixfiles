@@ -17,6 +17,27 @@
 
   networking.hostName = "rocinante";
 
+  services.syncthing.settings.folders = {
+    "Documents" = {
+      id = "d6pbp-k3jur";
+      path = "/home/hschne/Documents";
+      devices = [ "Diskstation" ];
+      type = "sendreceive";
+    };
+    "Pictures" = {
+      id = "7epys-jcu7w";
+      path = "/home/hschne/Pictures";
+      devices = [ "Diskstation" ];
+      type = "sendreceive";
+    };
+    "Videos" = {
+      id = "dxnw7-fqqfc";
+      path = "/home/hschne/Videos";
+      devices = [ "Diskstation" ];
+      type = "sendreceive";
+    };
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
