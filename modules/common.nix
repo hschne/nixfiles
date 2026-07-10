@@ -61,6 +61,9 @@ in
 
     # Use the Secret Service keyring backend; the kernel keyring is session-bound.
     PROTON_PASS_LINUX_KEYRING = "dbus";
+
+    # Add systemPackages to the default linker path.
+    LD_LIBRARY_PATH = "${pkgs.vips}/lib";
   };
 
   environment.systemPackages = with pkgs; [
@@ -116,5 +119,6 @@ in
     gnumake
     pkg-config
     openssl
+    vips
   ];
 }

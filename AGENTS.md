@@ -37,6 +37,10 @@ cd ~/Source/nixfiles && git add -A && git commit -m "..." && git push
 ssh anubis "cd ~/Source/nixfiles && git pull && sudo nixos-rebuild switch --flake ~/Source/nixfiles#anubis"
 ```
 
+## Comments
+
+Keep comments to a single line that explains the intent, not implementation details.
+
 ## Notes
 
 - `nixpkgs` tracks `nixos-unstable`.
