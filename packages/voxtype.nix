@@ -7,6 +7,7 @@
   fetchurl,
   autoPatchelfHook,
   makeWrapper,
+  wrapGAppsHook4,
   alsa-lib,
   curl,
   openssl,
@@ -18,6 +19,7 @@
   playerctl,
   vulkan-loader,
   vulkan-tools,
+  gtk4-layer-shell,
   variant ? "avx2",
 }:
 
@@ -40,11 +42,22 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
+  osdSrc = fetchurl {
+    url = "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd";
+    sha256 = "c510388dff6a69b59055a1915830fee8e0cb5aafd8f065e3e382b78a84eebab7";
+  };
+
+  osdGtk4Src = fetchurl {
+    url = "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-gtk4";
+    sha256 = "fed81695551cee95bb0fd376ec6dc49638b0fd714480504d78aa597b006a5952";
+  };
+
   dontUnpack = true;
 
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
+    wrapGAppsHook4
   ];
   buildInputs = [
     alsa-lib
@@ -52,18 +65,21 @@ stdenv.mkDerivation rec {
     openssl
     zlib
     stdenv.cc.cc.lib
+    gtk4-layer-shell
   ]
   ++ lib.optional isVulkan vulkan-loader;
 
   installPhase = ''
     runHook preInstall
     install -Dm755 $src $out/bin/voxtype
+    install -Dm755 $osdSrc $out/bin/voxtype-osd
+    install -Dm755 $osdGtk4Src $out/bin/voxtype-osd-gtk4
     runHook postInstall
   '';
 
   postInstall = ''
     wrapProgram $out/bin/voxtype \
-      --prefix PATH : ${
+      --prefix PATH : "$out/bin:${
         lib.makeBinPath (
           [
             wtype
@@ -74,7 +90,7 @@ stdenv.mkDerivation rec {
           ]
           ++ lib.optional isVulkan vulkan-tools
         )
-      } \
+      }}" \
       ${lib.optionalString isVulkan "--prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [ vulkan-loader ]
       }"}
