@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  pass-cli = pkgs.callPackage ../packages/pass-cli.nix { };
-in
 {
   nix.settings.experimental-features = [
     "nix-command"
@@ -72,6 +69,7 @@ in
     curl
     wget
     neovim
+    marksman
     nixfmt
     htop
     rsync
@@ -112,7 +110,7 @@ in
     bubblewrap
     gnupg
     age
-    pass-cli
+    proton-pass-cli
 
     # Build toolchain; openssl for mise-compiled runtimes
     gcc
