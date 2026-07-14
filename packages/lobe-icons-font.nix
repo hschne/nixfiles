@@ -1,10 +1,10 @@
 # AI provider glyphs (Unicode Plane 15) from github.com/hschne/lobe-icons-font.
-# The repo is private, so the built ttf is vendored here.
+# The release artifact is vendored to keep the package available offline.
 { stdenvNoCC }:
 
 stdenvNoCC.mkDerivation {
   pname = "lobe-icons-font";
-  version = "0-unstable-2026-06-27";
+  version = "5.13.0";
 
   src = ./fonts/lobe-icons.ttf;
   dontUnpack = true;
