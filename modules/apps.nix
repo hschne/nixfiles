@@ -2,6 +2,11 @@
 {
   # GUI applications; needs desktop.nix.
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   # OBS virtual camera. v4l2loopback is configured manually because
   # programs.obs-studio.enableVirtualCamera hardcodes video_nr=1, which
   # collides with the laptop webcam.
@@ -31,6 +36,8 @@
         "--enable-features=AcceleratedVideoEncoder,WaylandWindowDecorations"
       ];
     })
+    # Match Selenium with Chromium from pinned nixpkgs.
+    chromedriver
 
     # Office / documents / reading
     libreoffice-still
@@ -48,6 +55,7 @@
     gimp
     inkscape
     kdePackages.kdenlive
+    (callPackage ../packages/tldraw-offline.nix { })
 
     # Communication
     signal-desktop

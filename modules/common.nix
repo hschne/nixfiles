@@ -43,7 +43,13 @@
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   # Run prebuilt binaries (e.g. mise-managed runtimes) on NixOS.
-  programs.nix-ld.enable = true;
+  # libraries exposes shared libs these binaries dlopen (e.g. ruby-vips -> libvips).
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      vips
+    ];
+  };
 
   # FHS shebangs like /bin/bash in user scripts.
   services.envfs.enable = true;
@@ -58,9 +64,6 @@
 
     # Use the Secret Service keyring backend; the kernel keyring is session-bound.
     PROTON_PASS_LINUX_KEYRING = "dbus";
-
-    # Add systemPackages to the default linker path.
-    LD_LIBRARY_PATH = "${pkgs.vips}/lib";
   };
 
   environment.systemPackages = with pkgs; [
