@@ -109,6 +109,7 @@
     gh
     lazygit
     httpie
+    awscli2
     ctags
     entr
     mise

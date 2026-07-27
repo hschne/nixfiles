@@ -12,6 +12,7 @@
     ../../modules/voxtype.nix
     ../../modules/bluetooth.nix
     ../../modules/docker.nix
+    ../../modules/android.nix
     ../../modules/wifi.nix
   ];
 
