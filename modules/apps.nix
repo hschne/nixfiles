@@ -61,6 +61,7 @@
     signal-desktop
     discord
     slack
+    mattermost-desktop
 
     # Files / transfer / capture
     filezilla

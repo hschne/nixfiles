@@ -37,7 +37,14 @@
 
   services.tailscale = {
     enable = true;
-    extraSetFlags = [ "--ssh" ];
+    # accept subnet routes and DNS from the tailnet
+    useRoutingFeatures = "client";
+    # operator lets hschne run tailscale commands without sudo
+    extraSetFlags = [
+      "--ssh"
+      "--operator=hschne"
+      "--accept-routes"
+    ];
   };
 
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
