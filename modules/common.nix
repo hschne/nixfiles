@@ -26,7 +26,6 @@
     ];
   };
 
-
   services.openssh = {
     enable = true;
     settings = {
@@ -75,6 +74,7 @@
 
   environment.systemPackages = with pkgs; [
     # Core
+    coreutils
     git
     curl
     wget
@@ -91,6 +91,8 @@
     file
 
     # Shell environment
+    sqlite
+    util-linux
     tmux
     starship
     yadm
@@ -127,6 +129,7 @@
     gcc
     gnumake
     pkg-config
+    postgresql.pg_config
     openssl
     vips
   ];

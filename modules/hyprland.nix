@@ -108,13 +108,14 @@ in
     wlr-randr
     wayfreeze
 
-    # Screenshots / clipboard / images
+    # Screenshots / clipboard / media
     grim
     slurp
     satty
     wl-clipboard
     imv
     imagemagick
+    ffmpeg
 
     # Notifications
     libnotify
