@@ -73,7 +73,10 @@ in
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     after = [ "graphical-session.target" ];
-    path = [ config.system.path ];
+    path = [
+      "/run/wrappers"
+      config.system.path
+    ];
     serviceConfig = {
       ExecStart = "${pkgs.elephant}/bin/elephant";
       Restart = "on-failure";

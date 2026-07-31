@@ -50,6 +50,9 @@
     "splash"
   ];
 
+  # Compressed RAM swap so heavy dev workloads (Android emulator) stop paging out to nvme.
+  zramSwap.enable = true;
+
   # Radeon/WiFi firmware + AMD microcode.
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
