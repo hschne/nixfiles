@@ -67,9 +67,9 @@ let
       setProp hw.keyboard yes
       setProp hw.gpu.enabled yes
       setProp hw.gpu.mode host
-      setProp hw.ramSize 4G
+      setProp hw.ramSize 4096
       setProp hw.cpu.ncore 6
-      setProp vm.heapSize 512M
+      setProp vm.heapSize 512
 
       echo "Created $name ($config)"
     '';
