@@ -61,6 +61,7 @@
   services.envfs.enable = true;
 
   programs.zsh.enable = true;
+  programs.zsh.enableGlobalCompInit = false;
   programs.fzf.keybindings = true;
   programs.fzf.fuzzyCompletion = true;
   users.defaultUserShell = pkgs.zsh;
@@ -112,6 +113,7 @@
     lazygit
     httpie
     awscli2
+    ssm-session-manager-plugin
     ctags
     entr
     mise
