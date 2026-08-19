@@ -45,5 +45,5 @@ Keep comments to a single line that explains the intent, not implementation deta
 
 - `nixpkgs` tracks `nixos-unstable`.
 - `ZI_BIN_DIR` is set via `environment.sessionVariables` to the Nix-provided zinit path.
-- `programs.fzf.keybindings` and `programs.fzf.fuzzyCompletion` are enabled — do not add fzf key-binding setup to dotfiles.
+- fzf shell integration is user-owned in dotfiles; do not enable global keybindings or fuzzy completion in NixOS modules.
 - mise is installed as a system package; tools are installed per-user via `mise install`.

@@ -62,8 +62,6 @@
 
   programs.zsh.enable = true;
   programs.zsh.enableGlobalCompInit = false;
-  programs.fzf.keybindings = true;
-  programs.fzf.fuzzyCompletion = true;
   users.defaultUserShell = pkgs.zsh;
 
   environment.sessionVariables = {
@@ -103,6 +101,7 @@
     eza
     bat
     fd
+    fzf
     ripgrep
     zoxide
     jq
