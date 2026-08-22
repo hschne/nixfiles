@@ -67,6 +67,7 @@
 
     # Files / transfer / capture
     filezilla
+    gnome-disk-utility
     wl-screenrec
   ];
 }
