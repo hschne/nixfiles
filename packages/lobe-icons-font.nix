@@ -4,7 +4,7 @@
 
 stdenvNoCC.mkDerivation {
   pname = "lobe-icons-font";
-  version = "5.13.0";
+  version = "5.16.0";
 
   src = ./fonts/lobe-icons.ttf;
   dontUnpack = true;

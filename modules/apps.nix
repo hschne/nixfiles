@@ -34,6 +34,8 @@
     (chromium.override {
       commandLineArgs = [
         "--enable-features=AcceleratedVideoEncoder,WaylandWindowDecorations"
+        "--remote-debugging-port=9222"
+        "--remote-allow-origins=*"
       ];
     })
     # Match Selenium with Chromium from pinned nixpkgs.
