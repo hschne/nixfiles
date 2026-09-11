@@ -11,10 +11,10 @@
     dates = "weekly";
   };
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=2G
-    MaxRetentionSec=30day
-  '';
+  services.journald.settings.Journal = {
+    SystemMaxUse = "2G";
+    MaxRetentionSec = "30day";
+  };
 
   boot.tmp.cleanOnBoot = true;
 
