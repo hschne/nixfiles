@@ -93,48 +93,49 @@
     parted
 
     # Shell environment
+    postgresql
     sqlite
-    util-linux
-    tmux
     starship
+    tmux
+    util-linux
     yadm
     zinit
 
     # CLI tooling
-    eza
+    age
+    awscli2
     bat
+    btop
+    bubblewrap
+    ctags
+    delta
+    dust
+    entr
+    eza
+    fastfetch
     fd
     fzf
-    ripgrep
-    zoxide
-    jq
-    yq
-    dust
-    delta
     gh
-    lazygit
-    httpie
-    awscli2
-    ssm-session-manager-plugin
-    ctags
-    entr
-    mise
-    yazi
-    silicon
-    p7zip
-    btop
-    fastfetch
-    bubblewrap
     gnupg
-    age
+    httpie
+    jq
+    lazygit
+    mise
+    p7zip
     proton-pass-cli
+    ripgrep
+    silicon
+    ssm-session-manager-plugin
+    yazi
+    yq
+    zoxide
 
     # Build toolchain; openssl for mise-compiled runtimes
     gcc
     gnumake
+    openssl
     pkg-config
     postgresql.pg_config
-    openssl
     vips
   ];
 }
