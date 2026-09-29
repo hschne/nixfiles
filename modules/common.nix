@@ -117,6 +117,7 @@
     fzf
     gh
     gnupg
+    hcloud
     httpie
     jq
     lazygit

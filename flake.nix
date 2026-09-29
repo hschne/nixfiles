@@ -13,8 +13,6 @@
       formatter.${system} = pkgs.nixfmt-tree;
 
       packages.${system} = {
-        picoclaw = pkgs.callPackage ./packages/picoclaw.nix { };
-
         # Bootable installer ISO: nix build .#installer-iso
         installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
       };

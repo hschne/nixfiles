@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/syncthing.nix
-    ../../modules/picoclaw.nix
   ];
 
   networking.hostName = "anubis";
