@@ -23,9 +23,6 @@
       "wheel"
       "networkmanager"
     ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICT22cRCeqhk1u60725JZGb16dHpxrK5PeskeprGEcoA hschne@anubis"
-    ];
   };
 
   services.openssh = {

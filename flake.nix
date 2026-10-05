@@ -1,10 +1,20 @@
 {
   description = "Hans's NixOS hosts";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      disko,
+    }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -20,7 +30,10 @@
       nixosConfigurations = {
         anubis = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/anubis ];
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/anubis
+          ];
         };
 
         rocinante = nixpkgs.lib.nixosSystem {
