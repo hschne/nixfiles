@@ -18,6 +18,8 @@
 
   networking.hostName = "rocinante";
 
+  services.fwupd.enable = true;
+
   services.syncthing.settings.folders = {
     "Documents" = {
       id = "d6pbp-k3jur";
