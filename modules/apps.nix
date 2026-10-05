@@ -42,7 +42,7 @@
     chromedriver
 
     # Office / documents / reading
-    libreoffice-still
+    libreoffice-stable
     calibre
     xournalpp
     zathura

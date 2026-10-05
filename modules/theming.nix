@@ -7,13 +7,13 @@
   # Papirus (not Papirus-Dark) — the dark variant lacks some emblems.
   environment.etc."xdg/gtk-3.0/settings.ini".text = ''
     [Settings]
-    gtk-theme-name=Arc-Dark
+    gtk-theme-name=Adwaita
     gtk-icon-theme-name=Papirus
     gtk-application-prefer-dark-theme=1
   '';
   environment.etc."xdg/gtk-4.0/settings.ini".text = ''
     [Settings]
-    gtk-theme-name=Arc-Dark
+    gtk-theme-name=Adwaita
     gtk-icon-theme-name=Papirus
     gtk-application-prefer-dark-theme=1
   '';
@@ -30,7 +30,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    arc-theme
     papirus-icon-theme
     adwaita-icon-theme
     hicolor-icon-theme
