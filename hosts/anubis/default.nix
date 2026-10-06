@@ -16,9 +16,21 @@
   security.sudo.wheelNeedsPassword = false;
 
   services.syncthing.settings.folders = {
-    "Wiki" = {
-      id = "um3ae-juejn";
-      path = "/home/hschne/Documents/Wiki";
+    "Documents" = {
+      id = "d6pbp-k3jur";
+      path = "/home/hschne/Documents";
+      devices = [ "Diskstation" ];
+      type = "sendreceive";
+    };
+    "Pictures" = {
+      id = "7epys-jcu7w";
+      path = "/home/hschne/Pictures";
+      devices = [ "Diskstation" ];
+      type = "sendreceive";
+    };
+    "Videos" = {
+      id = "dxnw7-fqqfc";
+      path = "/home/hschne/Videos";
       devices = [ "Diskstation" ];
       type = "sendreceive";
     };
