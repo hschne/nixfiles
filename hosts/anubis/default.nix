@@ -33,13 +33,24 @@
   };
 
   services.syncthing.settings.folders = {
+    "Camera" = {
+      id = "vkthv-5m4cp";
+      path = "/home/hschne/Pictures/Camera";
+      devices = [ "Razorback" ];
+      type = "sendreceive";
+    };
+    "Wiki" = {
+      id = "um3ae-juejn";
+      path = "/home/hschne/Documents/Wiki";
+      devices = [ "Razorback" ];
+      type = "sendreceive";
+    };
     "Documents" = {
       id = "d6pbp-k3jur";
       path = "/home/hschne/Documents";
       devices = [
         "Diskstation"
         "Rocinante"
-        "Razorback"
       ];
       type = "sendreceive";
     };
@@ -49,7 +60,6 @@
       devices = [
         "Diskstation"
         "Rocinante"
-        "Razorback"
       ];
       type = "sendreceive";
     };
@@ -59,7 +69,6 @@
       devices = [
         "Diskstation"
         "Rocinante"
-        "Razorback"
       ];
       type = "sendreceive";
     };
