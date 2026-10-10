@@ -1,48 +1,25 @@
-# nixfiles agent context
+# nixfiles
 
-NixOS configuration for Hans's hosts, managed as a flake.
+NixOS host configurations, managed as a flake. Inspect `flake.nix` and `hosts/<name>/default.nix` for host imports and outputs.
 
-## Workflow
+## Deployment
 
-- Edit repository files locally, push, then pull and rebuild on the remote host.
-- Use SSH for runtime-secret provisioning, service operations, diagnostics, and deployment verification.
-
-## Repo layout
-
-```
-flake.nix               # Inputs (nixpkgs unstable) and host outputs
-modules/common.nix      # Baseline every host imports (user, SSH, CLI, toolchain)
-modules/*.nix           # Feature modules (desktop, audio, apps, docker, ...)
-hosts/<name>/           # Host config (imports common.nix + feature modules)
-packages/               # Custom package derivations
-```
-
-## Hosts
-
-| Host      | Role                             | Access                      |
-| --------- | -------------------------------- | --------------------------- |
-| anubis    | Headless NixOS devbox on Proxmox | `ssh anubis` (Tailscale)    |
-| rocinante | AMD laptop (Hyprland desktop)    | local                       |
-| installer | Bootable ISO for metal installs  | `nix build .#installer-iso` |
-
-## Applying changes to anubis
+Edit repository files locally, commit/push when authorized, then pull and rebuild on the target. SSH is also available for secrets, diagnostics, and service operations.
 
 ```bash
-# 1. Edit locally
-# 2. Commit and push
-cd ~/Source/nixfiles && git add <changed-paths> && git status && git commit -m "..." && git push
-
-# 3. Pull and rebuild on anubis
-ssh anubis "cd ~/Source/nixfiles && git pull && sudo nixos-rebuild switch --flake ~/Source/nixfiles#anubis"
+ssh anubis 'cd ~/Source/nixfiles && git pull --ff-only && sudo nixos-rebuild switch --flake .#anubis'
 ```
 
-## Comments
+Verify the requested service from the user's access path before declaring deployment complete; server-local health checks alone are insufficient.
 
-Keep comments to a single line that explains the intent, not implementation details.
+## Personal Tailscale on Rocinante
 
-## Notes
+Work and personal Tailscale run simultaneously. Inspect the personal service in `hosts/rocinante/default.nix` before recommending account switching; the default CLI only reports the work instance.
 
-- `nixpkgs` tracks `nixos-unstable`.
-- `ZI_BIN_DIR` is set via `environment.sessionVariables` to the Nix-provided zinit path.
-- fzf shell integration is user-owned in dotfiles; do not enable global keybindings or fuzzy completion in NixOS modules.
-- mise is installed as a system package; tools are installed per-user via `mise install`.
+`modules/personal-photos.nix` provides ordinary browser access to Photos through a loopback bridge into personal Tailscale. The userspace personal instance does not otherwise provide normal network routing.
+
+## Conventions
+
+- Keep comments to one line explaining intent.
+- Keep fzf shell integration in user dotfiles, not global NixOS settings.
+- Install mise-managed tools per user with `mise install`.

@@ -14,6 +14,7 @@
     ../../modules/docker.nix
     ../../modules/android.nix
     ../../modules/wifi.nix
+    ../../modules/personal-photos.nix
   ];
 
   networking.hostName = "rocinante";
