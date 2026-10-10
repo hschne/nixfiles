@@ -1,0 +1,11 @@
+[http.routers.immich]
+  rule = "Host(`photos.schnedlitz.family`)"
+  entryPoints = ["websecure"]
+  service = "immich"
+
+[http.routers.immich.tls]
+  certResolver = "cloudflare"
+
+[http.services.immich.loadBalancer]
+  [[http.services.immich.loadBalancer.servers]]
+    url = "http://immich-server:2283"

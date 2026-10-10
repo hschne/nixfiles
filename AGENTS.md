@@ -2,11 +2,10 @@
 
 NixOS configuration for Hans's hosts, managed as a flake.
 
-## Workflow — non-negotiable
+## Workflow
 
-- **Edit locally, push, then pull and rebuild on the remote host.**
-- Never edit files directly on a remote host (no SSH + sed, no SSH + tee, nothing).
-- The only commands that run over SSH are `git pull` and `sudo nixos-rebuild switch`.
+- Edit repository files locally, push, then pull and rebuild on the remote host.
+- Use SSH for runtime-secret provisioning, service operations, diagnostics, and deployment verification.
 
 ## Repo layout
 
@@ -31,7 +30,7 @@ packages/               # Custom package derivations
 ```bash
 # 1. Edit locally
 # 2. Commit and push
-cd ~/Source/nixfiles && git add -A && git commit -m "..." && git push
+cd ~/Source/nixfiles && git add <changed-paths> && git status && git commit -m "..." && git push
 
 # 3. Pull and rebuild on anubis
 ssh anubis "cd ~/Source/nixfiles && git pull && sudo nixos-rebuild switch --flake ~/Source/nixfiles#anubis"

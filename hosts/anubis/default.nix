@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/syncthing.nix
+    ../../modules/immich.nix
   ];
 
   networking.hostName = "anubis";

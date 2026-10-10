@@ -1,0 +1,13 @@
+{
+  "machineLearning": {
+    "enabled": false
+  },
+  "server": {
+    "externalDomain": "https://photos.schnedlitz.family"
+  },
+  "storageTemplate": {
+    "enabled": true,
+    "hashVerificationEnabled": true,
+    "template": "{{y}}/{{MM}}/{{filename}}"
+  }
+}

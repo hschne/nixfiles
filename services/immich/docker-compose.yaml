@@ -1,0 +1,65 @@
+name: immich
+
+services:
+  traefik:
+    image: traefik:v3.7.14
+    restart: unless-stopped
+    ports:
+      - "100.68.130.10:443:443"
+    environment:
+      CF_DNS_API_TOKEN_FILE: /run/secrets/cloudflare_token
+    secrets:
+      - cloudflare_token
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml:ro
+      - ./routes.toml:/etc/traefik/routes.toml:ro
+      - /var/lib/immich/traefik:/certificates
+
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:v3.3.1
+    restart: unless-stopped
+    env_file:
+      - /var/lib/immich/database.env
+    environment:
+      IMMICH_CONFIG_FILE: /config/immich.json
+      DB_HOSTNAME: database
+      DB_USERNAME: immich
+      DB_DATABASE_NAME: immich
+      REDIS_HOSTNAME: redis
+      TZ: Europe/Vienna
+    volumes:
+      - ./immich.json:/config/immich.json:ro
+      - /var/lib/immich/data:/data
+      - /home/hschne/Pictures/Photos:/data/library
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+    healthcheck:
+      disable: false
+
+  redis:
+    image: docker.io/valkey/valkey:9@sha256:c123e3715db63d06d4ad6964884037aa0d5d4d703939b9929954112889708e1d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG || exit 1"]
+
+  database:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Database password is required}
+      POSTGRES_USER: immich
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: --data-checksums
+    volumes:
+      - /var/lib/immich/postgres:/var/lib/postgresql/data
+    shm_size: 128mb
+    healthcheck:
+      disable: false
+
+secrets:
+  cloudflare_token:
+    file: /var/lib/immich/cloudflare-token
