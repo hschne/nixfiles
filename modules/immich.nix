@@ -11,6 +11,18 @@ in
 
   environment.systemPackages = [ pkgs.docker-compose ];
 
+  networking.firewall.interfaces.enp0s31f6.allowedTCPPorts = [ 443 ];
+
+  services.cloudflare-dyndns = {
+    enable = true;
+    apiTokenFile = "/var/lib/immich/cloudflare-token";
+    domains = [ "photos.schnedlitz.family" ];
+    ipv4 = true;
+    ipv6 = false;
+    proxied = false;
+    frequency = "*:0/5";
+  };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/immich 0700 root root -"
     "d /var/lib/immich/data 0700 root root -"
@@ -24,12 +36,16 @@ in
   ];
 
   systemd.services.immich = {
-    description = "Immich and private HTTPS proxy";
+    description = "Immich and HTTPS proxy";
     wantedBy = [ "multi-user.target" ];
-    wants = [ "tailscale-online.target" ];
+    wants = [
+      "network-online.target"
+      "tailscale-online.target"
+    ];
     requires = [ "docker.service" ];
     after = [
       "docker.service"
+      "network-online.target"
       "tailscale-online.target"
       "systemd-tmpfiles-setup.service"
     ];
@@ -59,12 +75,13 @@ in
       chmod 600 /var/lib/immich/database.env
 
       for attempt in $(seq 1 60); do
-        if ip -4 -o addr show dev tailscale0 2>/dev/null | grep -q ' inet 100\.68\.130\.10/'; then
+        if ip -4 -o addr show dev tailscale0 2>/dev/null | grep -q ' inet 100\.68\.130\.10/' &&
+           ip -4 -o addr show dev enp0s31f6 2>/dev/null | grep -q ' inet 192\.168\.50\.53/'; then
           exit 0
         fi
         sleep 2
       done
-      echo "Anubis's Tailscale address is unavailable; refusing to publish HTTPS elsewhere" >&2
+      echo "Anubis's reserved LAN or Tailscale address is unavailable; refusing to publish HTTPS elsewhere" >&2
       exit 1
     '';
 

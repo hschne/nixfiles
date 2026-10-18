@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - "100.68.130.10:443:443"
+      - "192.168.50.53:443:443"
     environment:
       CF_DNS_API_TOKEN_FILE: /run/secrets/cloudflare_token
     secrets:
