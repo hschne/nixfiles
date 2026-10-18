@@ -43,6 +43,7 @@ The automatic database dumps remain enabled under `/var/lib/immich/data/backups`
 - NixOS's `cloudflare-dyndns` service checks the public IPv4 address every five minutes using the existing zone-scoped token via systemd credentials.
 - Certificates still use DNS challenges, so inbound port 80 is unnecessary. Traefik's 30-minute timeouts support large video uploads.
 - Router settings are applied through its admin UI, not managed by NixOS; the reservation and forwarding rule above must be restored if the router is reset.
+- Rocinante uses ordinary public DNS without the former localhost Photos bridge; its separate personal Tailscale and Syncthing GUI bridge remain unchanged.
 
 For verification, use mobile data with Wi-Fi and Tailscale off: log in, upload a video larger than 100 MB, and check playback. A LAN test against the public address checks hairpin NAT but is not an external reachability test.
 
