@@ -15,7 +15,8 @@ in
     "d /var/lib/immich 0700 root root -"
     "d /var/lib/immich/data 0700 root root -"
     "d /var/lib/immich/model-cache 0700 root root -"
-    "d /var/lib/immich/postgres 0700 root root -"
+    # Match the pinned PostgreSQL image's UID/GID so activation preserves database access.
+    "d /var/lib/immich/postgres 0700 999 999 -"
     "d /var/lib/immich/traefik 0700 root root -"
     "d /home/hschne/Pictures/Photos 2770 hschne users -"
     # Syncthing needs access to originals created by the container.
