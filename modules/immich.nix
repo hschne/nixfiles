@@ -14,6 +14,7 @@ in
   systemd.tmpfiles.rules = [
     "d /var/lib/immich 0700 root root -"
     "d /var/lib/immich/data 0700 root root -"
+    "d /var/lib/immich/model-cache 0700 root root -"
     "d /var/lib/immich/postgres 0700 root root -"
     "d /var/lib/immich/traefik 0700 root root -"
     "d /home/hschne/Pictures/Photos 2770 hschne users -"

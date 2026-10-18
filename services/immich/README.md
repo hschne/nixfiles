@@ -4,8 +4,8 @@ Private URL: https://photos.schnedlitz.family (Tailscale required).
 
 ## Configuration
 
-- `docker-compose.yaml`: pinned Immich v3.3.1, its release's PostgreSQL/Valkey images, and Traefik. No machine-learning container or Docker socket mount.
-- `immich.json`: machine learning disabled, storage templates enabled, originals organized by year/month/original filename.
+- `docker-compose.yaml`: pinned Immich v3.3.3 server and CPU machine-learning images, its release's PostgreSQL/Valkey images, and Traefik. No Docker socket mount.
+- `immich.json`: machine learning enabled with explicit v3.3.3 default models and thresholds for facial recognition, smart search, duplicate detection, and OCR; storage templates enabled, originals organized by year/month/original filename.
 - `traefik.toml` and `routes.toml`: private HTTPS and Cloudflare DNS challenge.
 - `../../modules/immich.nix`: Docker, directory permissions, and Compose startup/shutdown. Existing SSH, firewall, and Tailscale settings are unchanged.
 
@@ -17,6 +17,7 @@ Immich config-file mode disables system-settings edits in the UI, including sett
 | ------------------------------------------------------------------------------- | ------------------------------ |
 | Managed originals after storage-template processing                             | `/home/hschne/Pictures/Photos` |
 | Upload staging, previews, thumbnails, converted videos, avatars, database dumps | `/var/lib/immich/data`         |
+| Machine-learning model cache                                                    | `/var/lib/immich/model-cache`  |
 | PostgreSQL                                                                      | `/var/lib/immich/postgres`     |
 | Certificate keys                                                                | `/var/lib/immich/traefik`      |
 
@@ -32,6 +33,14 @@ The automatic database dumps remain enabled under `/var/lib/immich/data/backups`
 4. Open the private URL and create the admin account yourself. There is no provisioning/bootstrap script or external library.
 5. Upload a few test photos and verify they appear under `Pictures/Photos`, then on Diskstation/Rocinante via Syncthing. Check that previews, avatars, and dumps stay outside Pictures.
 6. Configure the Immich phone app to use the private URL and selected phone albums. Keep the old camera sync until upload behavior is verified.
+
+## Machine learning
+
+The CPU-only ML service is reachable only inside the Compose network. It downloads models on first use into `/var/lib/immich/model-cache`, outside Syncthing. The image version matches the server; update both together.
+
+ML settings are managed in `immich.json`, not the admin UI. New uploads use the enabled features automatically. To process existing assets after enabling ML, run the missing Smart Search, Face Detection, Facial Recognition, and OCR jobs from Administration → Jobs. Face detection must finish before facial recognition can group faces. Verify a small batch in the People view before starting a bulk import.
+
+Face names and groupings live in PostgreSQL, not in the synced originals; the model cache is not a backup of that metadata.
 
 ## Operations
 

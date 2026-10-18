@@ -16,7 +16,7 @@ services:
       - /var/lib/immich/traefik:/certificates
 
   immich-server:
-    image: ghcr.io/immich-app/immich-server:v3.3.1
+    image: ghcr.io/immich-app/immich-server:v3.3.3
     restart: unless-stopped
     env_file:
       - /var/lib/immich/database.env
@@ -37,6 +37,14 @@ services:
         condition: service_healthy
       database:
         condition: service_healthy
+    healthcheck:
+      disable: false
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:v3.3.3
+    restart: unless-stopped
+    volumes:
+      - /var/lib/immich/model-cache:/cache
     healthcheck:
       disable: false
 

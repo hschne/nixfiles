@@ -1,6 +1,34 @@
 {
   "machineLearning": {
-    "enabled": false
+    "enabled": true,
+    "urls": ["http://immich-machine-learning:3003"],
+    "availabilityChecks": {
+      "enabled": true,
+      "timeout": 2000,
+      "interval": 30000
+    },
+    "clip": {
+      "enabled": true,
+      "modelName": "ViT-B-32__openai"
+    },
+    "duplicateDetection": {
+      "enabled": true,
+      "maxDistance": 0.01
+    },
+    "facialRecognition": {
+      "enabled": true,
+      "modelName": "buffalo_l",
+      "minScore": 0.7,
+      "maxDistance": 0.5,
+      "minFaces": 3
+    },
+    "ocr": {
+      "enabled": true,
+      "modelName": "PP-OCRv5_mobile",
+      "minDetectionScore": 0.5,
+      "minRecognitionScore": 0.8,
+      "maxResolution": 736
+    }
   },
   "server": {
     "externalDomain": "https://photos.schnedlitz.family"
