@@ -5,8 +5,8 @@ services:
     image: traefik:v3.7.14
     restart: unless-stopped
     ports:
-      - "100.68.130.10:443:443"
-      - "192.168.50.53:443:443"
+      - "${IMMICH_TAILSCALE_ADDRESS:?Tailscale address is required}:443:443"
+      - "${IMMICH_LAN_ADDRESS:?LAN address is required}:443:443"
     environment:
       CF_DNS_API_TOKEN_FILE: /run/secrets/cloudflare_token
     secrets:
@@ -20,7 +20,7 @@ services:
     image: ghcr.io/immich-app/immich-server:v3.3.3
     restart: unless-stopped
     env_file:
-      - /var/lib/immich/database.env
+      - ${COMPOSE_ENV_FILES:?Database environment file is required}
     environment:
       IMMICH_CONFIG_FILE: /config/immich.json
       DB_HOSTNAME: database
@@ -31,7 +31,6 @@ services:
     volumes:
       - ./immich.json:/config/immich.json:ro
       - /var/lib/immich/data:/data
-      - /home/hschne/Pictures/Photos:/data/library
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       redis:
@@ -71,4 +70,4 @@ services:
 
 secrets:
   cloudflare_token:
-    file: /var/lib/immich/cloudflare-token
+    file: ${CLOUDFLARE_TOKEN_FILE:?Cloudflare token file is required}

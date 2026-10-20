@@ -1,11 +1,17 @@
 { ... }:
+let
+  network = import ./network.nix;
+in
 {
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
+    ./secrets
+    ./alerts
     ../../modules/common.nix
     ../../modules/syncthing.nix
-    ../../modules/immich.nix
+    ./immich
+    ./backups
   ];
 
   networking.hostName = "anubis";
@@ -22,7 +28,7 @@
   };
 
   # Bind the GUI only to anubis's address on the personal tailnet.
-  services.syncthing.guiAddress = "100.68.130.10:8384";
+  services.syncthing.guiAddress = "${network.tailscaleAddress}:8384";
   services.syncthing.settings.gui = {
     user = "hschne";
     password = "$2y$12$8rLPSS8QcaMp5kuyXTwwXef92w5LvS8euGbtTFIISxSKBGaHreV5C";

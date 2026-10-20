@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  anubisNetwork = import ../anubis/network.nix;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -44,7 +47,7 @@
     after = [ "tailscale-personal.service" ];
     serviceConfig = {
       User = "hschne";
-      ExecStart = ''${pkgs.socat}/bin/socat TCP4-LISTEN:18384,bind=127.0.0.1,reuseaddr,fork "EXEC:${pkgs.tailscale}/bin/tailscale --socket=/run/tailscale-personal/tailscaled.sock nc 100.68.130.10 8384"'';
+      ExecStart = ''${pkgs.socat}/bin/socat TCP4-LISTEN:18384,bind=127.0.0.1,reuseaddr,fork "EXEC:${pkgs.tailscale}/bin/tailscale --socket=/run/tailscale-personal/tailscaled.sock nc ${anubisNetwork.tailscaleAddress} 8384"'';
       Restart = "on-failure";
       RestartSec = 5;
       NoNewPrivileges = true;

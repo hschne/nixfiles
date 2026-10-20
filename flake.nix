@@ -7,6 +7,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       self,
       nixpkgs,
       disko,
+      agenix,
     }:
     let
       system = "x86_64-linux";
@@ -23,6 +28,8 @@
       formatter.${system} = pkgs.nixfmt-tree;
 
       packages.${system} = {
+        agenix = agenix.packages.${system}.agenix;
+
         # Bootable installer ISO: nix build .#installer-iso
         installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
       };
@@ -32,6 +39,7 @@
           inherit system;
           modules = [
             disko.nixosModules.disko
+            agenix.nixosModules.default
             ./hosts/anubis
           ];
         };

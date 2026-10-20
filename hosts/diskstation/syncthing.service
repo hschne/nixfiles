@@ -1,0 +1,17 @@
+[Unit]
+Description=Syncthing on Diskstation
+After=network.target
+RequiresMountsFor=/volume1
+
+[Service]
+User=syncthing
+Group=users
+ExecStart=/volume1/@appdata/syncthing/bin/syncthing-linux-arm-v1.27.12/syncthing serve --home=/var/packages/syncthing/var --no-browser --no-upgrade --no-restart --logfile=/volume1/@appdata/syncthing/syncthing.log --log-max-size=10485760 --log-max-old-files=3
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=120
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target
