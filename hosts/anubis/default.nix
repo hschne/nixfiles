@@ -12,6 +12,7 @@ in
     ../../modules/syncthing.nix
     ./immich
     ./backups
+    ./paseo
   ];
 
   networking.hostName = "anubis";

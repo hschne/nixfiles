@@ -26,16 +26,16 @@
 let
   sha256 =
     {
-      avx2 = "18ae0510d0c964689f8c9b7119c0b9a45569985e82977dc4f1ef4d76fddd887c";
-      avx512 = "bdb7c11fd10c33c1581d8d62352af9e4e1fd2b8dac7e4a35aa4f2775fa2ddb68";
-      vulkan = "64626d07f3aae2825ddb82ea66878f708c8a820a3fd3ece76d99ff98477f132d";
+      avx2 = "3462262980e5a75391ffdeb7d3b63f9f638d6261df042f04f9119dfb7aab7770";
+      avx512 = "6a23ccf9da9e6c6eaff4b23086cea4f97cab53b12526ec88200344d597dea305";
+      vulkan = "102a7caa22facc5c257c526ae4a9e63c04c027297fec4ca370209a1f94ae9863";
     }
     .${variant};
   isVulkan = variant == "vulkan";
 in
 stdenv.mkDerivation rec {
   pname = "voxtype";
-  version = "0.7.5";
+  version = "1.1.1";
 
   src = fetchurl {
     url = "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-${variant}";
@@ -44,12 +44,12 @@ stdenv.mkDerivation rec {
 
   osdSrc = fetchurl {
     url = "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd";
-    sha256 = "c510388dff6a69b59055a1915830fee8e0cb5aafd8f065e3e382b78a84eebab7";
+    sha256 = "e490fa797f39fd4f518149be851909f1d76059bf57949510ec4c24eb54d3a998";
   };
 
   osdGtk4Src = fetchurl {
     url = "https://github.com/peteonrails/voxtype/releases/download/v${version}/voxtype-${version}-linux-x86_64-osd-gtk4";
-    sha256 = "fed81695551cee95bb0fd376ec6dc49638b0fd714480504d78aa597b006a5952";
+    sha256 = "e16f96dcf046b9cfa895541bacb73053708f3edefa8d245a2b423b288cd5a0f0";
   };
 
   dontUnpack = true;

@@ -17,6 +17,14 @@ nix build .#installer-iso
 - Anubis's interface and addresses are defined in `hosts/anubis/network.nix`. Its router DHCP reservation and TCP 443 forwarding are outside Nix; preserve them when replacing or resetting the router.
 - Diskstation runs DSM, outside the flake. Its recorded `syncthing.service` is installed manually as `/etc/systemd/system/anubis-syncthing.service`.
 
+## Anubis agent access
+
+Paseo is managed by `paseo.service`, runs as `hschne`, and listens only on Anubis's personal Tailscale address on port 6767. The hosted relay is disabled. Connect Razorback through Paseo's **Add host → Direct connection**, with SSL off; Tailscale encrypts the connection. Rocinante's personal tailnet uses userspace networking, so use its SOCKS proxy or a local forward rather than an ordinary TCP connection.
+
+Bootstrap the user environment with `YADM_BOOTSTRAP_PROFILE=server yadm bootstrap` after cloning dotfiles. Provider logins, Paseo's password hash, and session history are runtime state, not Nix or dotfiles inputs. Paseo remains stopped until `~/.paseo/config.json` exists and contains a bcrypt password hash. As `hschne`, run `paseo daemon set-password`, then `sudo systemctl start paseo`. Restart through systemd, not `paseo daemon start` or `paseo daemon restart`.
+
+Nix owns the listener, disabled relay and service environment. Keep mutable settings in `~/.paseo/config.json`; setting `services.paseo.settings` would replace that file on every service start. Access to Paseo grants control over agents running with `hschne`'s filesystem access and sudo rights; use a unique password and restrict tailnet grants accordingly.
+
 ## Secret recovery
 
 Encrypted files and recipient rules live in `hosts/anubis/secrets/`. Anubis decrypts them with its SSH host key. The independent recovery identity is in Proton Pass → Personal → **Agenix Key**; individual backup credentials are under **Anubis Backup**.

@@ -2,9 +2,7 @@
 
 ## Deployment
 
-Edit repository source locally. Synchronize authorized changes to the target before rebuilding; use SSH for diagnostics, secret provisioning, and service operations.
-
-Verify the requested service through the user's access path before declaring deployment complete; server-local health checks are insufficient.
+Follow the nixfiles skill's build-and-deploy procedure: build locally and deploy the closure over SSH by default, without synchronizing or pulling the repository on the target. The skill owns activation sequencing, recovery precautions, and user-path verification.
 
 ## Rocinante networking
 
